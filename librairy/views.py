@@ -4,8 +4,8 @@ from rest_framework.reverse import reverse
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import AllowAny
 
-from picture.serializers import *
-from picture.models import Picture, Tag, Album
+from librairy.serializers import *
+from librairy.models import Picture, Tag, Album
 
 
 @api_view(('GET', ))

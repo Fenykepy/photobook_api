@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from picture.models import Picture, Tag, Album
+from librairy.models import Picture, Tag, Album
 
 
 class PictureSerializer(serializers.ModelSerializer):

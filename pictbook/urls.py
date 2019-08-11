@@ -20,7 +20,7 @@ from pictbook import views
 
 urlpatterns = [
     url('^api/user/', include('user.urls')),
-    url('^api/librairy/', include('picture.urls')),
+    url('^api/librairy/', include('librairy.urls')),
     url('^api/$', views.api_root, name='api-root'),
     path('admin/', admin.site.urls),
 ]

@@ -5,7 +5,7 @@ from django.core.files.storage import FileSystemStorage
 from django.contrib.auth.models import User
 from django.template.defaultfilters import slugify
 
-from picture.slug import unique_slugify
+from librairy.slug import unique_slugify
 
 
 
