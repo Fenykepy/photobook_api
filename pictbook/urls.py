@@ -17,13 +17,13 @@ from django.contrib import admin
 from django.conf.urls import include, url
 from django.urls import path
 
-from rest_framework.authtoken import views
+from knox import views as knox_views
 
 from picture.views import picture_root
 
 urlpatterns = [
     url('^api/$', picture_root, name='picture-root'),
-    url('^api/login/', views.obtain_auth_token, name='login'),
-    url('^api/', include('picture.urls')),
+    url('^api/user/', include('user.urls')),
+    url('^api/librairy/', include('picture.urls')),
     path('admin/', admin.site.urls),
 ]

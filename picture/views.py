@@ -12,12 +12,9 @@ from picture.models import Picture, Tag, Album
 @permission_classes([AllowAny])
 def picture_root(request, format=None):
     return Response({
-        'login': reverse('login', request=request, format=format),
         'picture-list': reverse('picture-list', request=request, format=format),
         'album-list': reverse('album-list', request=request, format=format),
     })
-
-
 
 
 class PictureList(generics.ListCreateAPIView):
