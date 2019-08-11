@@ -1,15 +1,18 @@
 from rest_framework import generics
 from rest_framework.response import Response
 from rest_framework.reverse import reverse
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, permission_classes
+from rest_framework.permissions import AllowAny
 
 from picture.serializers import *
 from picture.models import Picture, Tag, Album
 
 
 @api_view(('GET', ))
+@permission_classes([AllowAny])
 def picture_root(request, format=None):
     return Response({
+        'login': reverse('login', request=request, format=format),
         'picture-list': reverse('picture-list', request=request, format=format),
         'album-list': reverse('album-list', request=request, format=format),
     })
