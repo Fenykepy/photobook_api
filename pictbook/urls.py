@@ -16,14 +16,11 @@ Including another URLconf
 from django.contrib import admin
 from django.conf.urls import include, url
 from django.urls import path
-
-from knox import views as knox_views
-
-from picture.views import picture_root
+from pictbook import views
 
 urlpatterns = [
-    url('^api/$', picture_root, name='picture-root'),
     url('^api/user/', include('user.urls')),
     url('^api/librairy/', include('picture.urls')),
+    url('^api/$', views.api_root, name='api-root'),
     path('admin/', admin.site.urls),
 ]

@@ -10,7 +10,7 @@ from picture.models import Picture, Tag, Album
 
 @api_view(('GET', ))
 @permission_classes([AllowAny])
-def picture_root(request, format=None):
+def librairy_root(request, format=None):
     return Response({
         'picture-list': reverse('picture-list', request=request, format=format),
         'album-list': reverse('album-list', request=request, format=format),
