@@ -1,7 +1,8 @@
+import os
+import hashlib
 from django.db import models
 from django.core.files.storage import FileSystemStorage
 from django.contrib.auth.models import User
-import hashlib
 
 
 
@@ -36,9 +37,6 @@ def set_pathname(instance, filename):
     Set pathname this way:
     pictures/full/4a/52/4a523fe9c50a2f0b1dd677ae33ea0ec6e4a4b2a9
     """
-    # compute sha1
-    instance.sha1 = get_sha1_hexdigest(instance.source_file)
-
     return os.path.join(
             'pictures',
             'full',
@@ -72,13 +70,15 @@ class Picture(models.Model):
 
     
     def save(self, **kwargs):
-        #TODO compute sha1 here
+        # compute sha1 here
+        self.sha1 = get_sha1_hexdigest(self.source_file)
         super(Picture, self).save()
         
         # parse and add tags here
-        hashtags = extract_hastags(self.description)
+        hashtags = extract_hashtags(self.description)
+        print(hashtags)
         for hashtag in hashtags:
-            tag = Tag.objects.get_or_create(name=hashtag)
+            tag, created = Tag.objects.get_or_create(name=hashtag)
             tag.pictures.add(self)
 
 
