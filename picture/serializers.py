@@ -30,9 +30,14 @@ class AlbumSerializer(serializers.ModelSerializer):
     """
     A serializer with all albums data.
     """
+    url = serializers.HyperlinkedIdentityField(
+            view_name='album-detail',
+            lookup_field='slug',
+    )
     class Meta:
         model = Album
-        fields = ('name', 'description', 'pictures')
+        fields = ('url', 'name', 'slug', 'description', 'pictures', 'user')
+        read_only_fields = ('user', 'slug')
 
 
 

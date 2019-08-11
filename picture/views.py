@@ -52,6 +52,7 @@ class AlbumList(generics.ListCreateAPIView):
     """
     serializer_class = AlbumSerializer
     queryset = Album.objects.all()
+    lookup_field = 'slug'
 
     def get_queryset(self):
         user = self.request.user
@@ -68,4 +69,5 @@ class AlbumDetail(generics.RetrieveUpdateDestroyAPIView):
     """
     serializer_class = AlbumSerializer
     queryset = Album.objects.all()
+    lookup_field = 'slug'
 

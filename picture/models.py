@@ -3,6 +3,9 @@ import hashlib
 from django.db import models
 from django.core.files.storage import FileSystemStorage
 from django.contrib.auth.models import User
+from django.template.defaultfilters import slugify
+
+from picture.slug import unique_slugify
 
 
 
@@ -92,7 +95,8 @@ class Tag(models.Model):
 
 class Album(models.Model):
     """Table for all albums."""
-    name = models.CharField(db_index=True, max_length=254)
+    name = models.CharField(max_length=254)
+    slug = models.CharField(max_length=270, db_index=True, unique=True)
     description = models.TextField(blank=True, verbose_name="Album description")
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     date_created = models.DateTimeField(auto_now_add=True,
@@ -101,7 +105,20 @@ class Album(models.Model):
             verbose_name="Last modification date")
     pictures = models.ManyToManyField(Picture, blank=True)
 
+    def save(self, **kwargs):
+        """
+        Make unique slug from name, then save.
+        """
+        unique_slugify(self, slugify(self.name), slugify_value=False)
+
+        super(Album, self).save()
+
 
 
 def extract_hashtags(s):
     return set(part[1:] for part in s.split() if part.startswith('#'))
+
+
+
+
+
