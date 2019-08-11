@@ -1,3 +1,5 @@
+from django.shortcuts import get_object_or_404
+
 from rest_framework import generics
 from rest_framework.response import Response
 from rest_framework.reverse import reverse
@@ -27,7 +29,12 @@ class PictureList(generics.ListCreateAPIView):
 
     def get_queryset(self):
         user = self.request.user
-        return Picture.objects.filter(user=user)
+        queryset = Picture.objects.filter(user=user)
+        tag = self.request.query_params.get('tag', None)
+        if tag is not None:
+            tag = get_object_or_404(Tag, name=tag)
+            queryset = queryset.filter(tag=tag)
+        return queryset
 
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
@@ -42,6 +49,10 @@ class PictureDetail(generics.RetrieveUpdateDestroyAPIView):
     """
     serializer_class = PictureSerializer
     queryset = Picture.objects.all()
+
+    def get_queryset(self):
+        user = self.request.user
+        return Picture.objects.filter(user=user)
 
 
 
@@ -70,4 +81,8 @@ class AlbumDetail(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = AlbumSerializer
     queryset = Album.objects.all()
     lookup_field = 'slug'
+
+    def get_queryset(self):
+        user = self.request.user
+        return Album.objects.filter(user=user)
 
