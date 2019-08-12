@@ -9,6 +9,8 @@ urlpatterns = [
     
     url(r'^album/$', views.AlbumList.as_view(), name="album-list"),
     url(r'^album/(?P<slug>[-\w]+)/$', views.AlbumDetail.as_view(), name="album-detail"),
+
+    url(r'^tags/$', views.tags_flat_list, name="tags-list"),
     url(r'^$', views.librairy_root, name='librairy-root'),
 ]
 

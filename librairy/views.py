@@ -16,6 +16,7 @@ def librairy_root(request, format=None):
     return Response({
         'picture-list': reverse('picture-list', request=request, format=format),
         'album-list': reverse('album-list', request=request, format=format),
+        'tags-list': reverse('tags-list', request=request, format=format),
     })
 
 
@@ -86,3 +87,13 @@ class AlbumDetail(generics.RetrieveUpdateDestroyAPIView):
         user = self.request.user
         return Album.objects.filter(user=user)
 
+
+@api_view(['GET'])
+def tags_flat_list(request, format=None):
+    """
+    Returns a flat list of all tags without pagination.
+    """
+    tags = Tag.objects.order_by('name').values_list('name',
+            flat=True)
+
+    return Response(tags)
