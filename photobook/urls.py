@@ -1,4 +1,4 @@
-"""pictbook URL Configuration
+"""photobook URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/2.2/topics/http/urls/
@@ -16,7 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.conf.urls import include, url
 from django.urls import path
-from pictbook import views
+from photobook import views
 
 urlpatterns = [
     url('^api/user/', include('user.urls')),

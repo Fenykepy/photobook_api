@@ -1,1 +1,1 @@
-# pictbook_api
+# photobook_api
