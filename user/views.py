@@ -8,7 +8,9 @@ from rest_framework.permissions import AllowAny
 @api_view(('GET', ))
 @permission_classes([AllowAny])
 def user_root(request, format=None):
-    return Response({''
+    return Response({
+       'token-obtain': reverse('token-obtain', request=request, format=format), 
+       'token-refresh': reverse('token-refresh', request=request, format=format), 
     })
 
 
