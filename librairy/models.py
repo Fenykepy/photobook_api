@@ -1,5 +1,6 @@
 import os
 import hashlib
+from django.conf import settings
 from django.db import models
 from django.core.files.storage import FileSystemStorage
 from django.contrib.auth.models import User
@@ -57,7 +58,7 @@ class Picture(models.Model):
             upload_to=set_pathname,
             storage=PictureFileSystemStorage()
     )
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     date_created = models.DateTimeField(auto_now_add=True,
             verbose_name="Creation date")
     date_updated = models.DateTimeField(auto_now=True,
@@ -98,7 +99,7 @@ class Album(models.Model):
     name = models.CharField(max_length=254)
     slug = models.CharField(max_length=270, db_index=True, unique=True)
     description = models.TextField(blank=True, verbose_name="Album description")
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     date_created = models.DateTimeField(auto_now_add=True,
             verbose_name="Creation date")
     date_updated = models.DateTimeField(auto_now=True,
