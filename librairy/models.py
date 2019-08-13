@@ -64,6 +64,7 @@ class Picture(models.Model):
     date_updated = models.DateTimeField(auto_now=True,
             verbose_name="Last modification date")
     description = models.TextField(verbose_name="Picture description")
+    original_name = models.CharField(max_length=254)
 
     class Meta:
         ordering = ['date_created']
@@ -74,13 +75,14 @@ class Picture(models.Model):
 
     
     def save(self, **kwargs):
+        # set original name
+        self.original_name = self.source_file.name[:254]
         # compute sha1 here
         self.sha1 = get_sha1_hexdigest(self.source_file)
         super(Picture, self).save()
         
         # parse and add tags here
         hashtags = extract_hashtags(self.description)
-        print(hashtags)
         for hashtag in hashtags:
             tag, created = Tag.objects.get_or_create(name=hashtag)
             tag.pictures.add(self)
