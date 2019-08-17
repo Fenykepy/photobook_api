@@ -36,7 +36,7 @@ class AlbumSerializer(serializers.ModelSerializer):
     )
     class Meta:
         model = Album
-        fields = ('url', 'name', 'slug', 'description', 'pictures', 'user')
+        fields = ('url', 'title', 'slug', 'description', 'pictures', 'user')
         read_only_fields = ('user', 'slug')
 
 

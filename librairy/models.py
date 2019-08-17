@@ -98,7 +98,7 @@ class Tag(models.Model):
 
 class Album(models.Model):
     """Table for all albums."""
-    name = models.CharField(max_length=254)
+    title = models.CharField(max_length=254)
     slug = models.CharField(max_length=270, db_index=True, unique=True)
     description = models.TextField(blank=True, verbose_name="Album description")
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
