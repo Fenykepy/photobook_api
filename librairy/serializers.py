@@ -34,6 +34,11 @@ class AlbumSerializer(serializers.ModelSerializer):
             view_name='album-detail',
             lookup_field='slug',
     )
+    pictures = serializers.SlugRelatedField(
+        many=True,
+        slug_field='sha1',
+        read_only=True,
+    )
     class Meta:
         model = Album
         fields = ('url', 'title', 'slug', 'description', 'pictures', 'user')
