@@ -3,7 +3,7 @@ from rest_framework import serializers
 from librairy.models import Picture, Tag, Album
 
 
-class PictureSerializer(serializers.ModelSerializer):
+class PictureFullSerializer(serializers.ModelSerializer):
     """
     A serializer with all pictures data.
     """
@@ -13,6 +13,19 @@ class PictureSerializer(serializers.ModelSerializer):
             'url', 'id', 'sha1', 'source_file', 'user', 'description'
         )
         read_only_fields = ('sha1', 'user')
+
+
+class PictureSerializer(serializers.ModelSerializer):
+    """
+    A serializer with all pictures data.
+    """
+    class Meta:
+        model = Picture
+        fields = (
+            'url', 'sha1', 'source_file', 'description'
+        )
+        read_only_fields = ('sha1',)
+        extra_kwargs = {'source_file': {'write_only': True}}
 
 
 class TagSerializer(serializers.ModelSerializer):
