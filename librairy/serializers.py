@@ -21,7 +21,7 @@ class PictureFullSerializer(serializers.ModelSerializer):
 
 class PictureSerializer(serializers.ModelSerializer):
     """
-    A serializer with all pictures data.
+    A serializer with a subset of pictures data.
     """
     class Meta:
         model = Picture
@@ -43,7 +43,7 @@ class TagSerializer(serializers.ModelSerializer):
         )
 
 
-class AlbumSerializer(serializers.ModelSerializer):
+class AlbumFullSerializer(serializers.ModelSerializer):
     """
     A serializer with all albums data.
     """
@@ -60,6 +60,22 @@ class AlbumSerializer(serializers.ModelSerializer):
         model = Album
         fields = ('url', 'title', 'slug', 'description', 'pictures', 'user')
         read_only_fields = ('user', 'slug')
+
+
+class AlbumSerializer(serializers.ModelSerializer):
+    """
+    A serializer with a subset albums data.
+    """
+    pictures = serializers.SlugRelatedField(
+        many=True,
+        slug_field='sha1',
+        read_only=True,
+    )
+    class Meta:
+        model = Album
+        fields = ('title', 'slug', 'description', 'pictures')
+        read_only_fields = ('slug',)
+
 
 
 
