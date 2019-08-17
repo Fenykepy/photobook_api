@@ -27,6 +27,7 @@ class PictureList(generics.ListCreateAPIView):
     """
     serializer_class = PictureSerializer
     queryset = Picture.objects.all()
+    lookup_field = 'sha1'
 
     def get_queryset(self):
         user = self.request.user
@@ -50,6 +51,7 @@ class PictureDetail(generics.RetrieveUpdateDestroyAPIView):
     """
     serializer_class = PictureSerializer
     queryset = Picture.objects.all()
+    lookup_field = 'sha1'
 
     def get_queryset(self):
         user = self.request.user

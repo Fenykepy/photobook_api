@@ -7,6 +7,10 @@ class PictureFullSerializer(serializers.ModelSerializer):
     """
     A serializer with all pictures data.
     """
+    url = serializers.HyperlinkedIdentityField(
+            view_name='picture-detail',
+            lookup_field='sha1',
+    )
     class Meta:
         model = Picture
         fields = (
@@ -22,7 +26,7 @@ class PictureSerializer(serializers.ModelSerializer):
     class Meta:
         model = Picture
         fields = (
-            'url', 'sha1', 'source_file', 'description'
+            'sha1', 'source_file', 'description'
         )
         read_only_fields = ('sha1',)
         extra_kwargs = {'source_file': {'write_only': True}}
